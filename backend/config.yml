@@ -1,0 +1,8 @@
+database:
+  databasename: "bookscan"
+  databaseuser: "bookscan"
+  databasepassword: "bookscan"
+  databaseip: "localhost"
+port: ":4002"
+appurl: "http://bookscan.com.test/"
+appname: "BOOKSCAN"

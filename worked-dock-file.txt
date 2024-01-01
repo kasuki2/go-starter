@@ -1,0 +1,43 @@
+FROM golang
+
+WORKDIR /app
+
+COPY backend/go.mod /app
+COPY backend/go.sum /app
+
+
+RUN go mod download
+
+COPY backend/cmd/http/. /app
+COPY backend/internal/. /app/internal
+COPY backend/pkg/. /app/pkg
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/main
+
+EXPOSE 4002
+
+CMD ["main"]
+
+--------- another dockerfile -------
+
+FROM golang
+
+WORKDIR /app
+
+COPY backend/go.mod /app
+COPY backend/go.sum /app
+
+
+RUN go mod download
+
+COPY backend/cmd/http/. /app/cmd/http
+COPY backend/internal/. /app/internal
+COPY backend/pkg/. /app/pkg
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o main /app/cmd/http
+
+EXPOSE 4002
+
+CMD ["/app/main"]
+
+
